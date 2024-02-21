@@ -21,9 +21,9 @@ public class DoctorServices {
        }
        catch(Exception e)
        {
-           System.out.println("\Error");
+           System.out.println("Error");
            System.out.println(e.toString());
-           System.out.println("\Error");
+           System.out.println("Error");
        }
     }
 
