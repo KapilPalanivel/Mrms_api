@@ -53,6 +53,6 @@ public class PatientServices {
 
     public boolean updatePatient()
     {
-        
+        return true;
     }
 }
