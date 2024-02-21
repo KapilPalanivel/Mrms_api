@@ -7,7 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Doctor {
+public class Doctor { 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long Doctorid;
@@ -22,7 +22,7 @@ public class Doctor {
     private String dob;
 
     public Doctor() {
-    }
+    } 
 
     public Doctor(long doctorid, int age, String name, String number, String email, String password, String dept,
             String dob) {

@@ -28,7 +28,7 @@ public class DoctorServices {
     public List<Doctor> getAllDoctors() {
         return doctorRepo.findAll();
     }
-
+  
     public Doctor getDoctorById(long id) {
         Optional<Doctor> optionalDoctor = doctorRepo.findById(id);
         return optionalDoctor.orElse(null);
