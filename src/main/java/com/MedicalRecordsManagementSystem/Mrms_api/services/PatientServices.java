@@ -51,8 +51,8 @@ public class PatientServices {
         return po.orElseThrow(() -> new EntityNotFoundException("Searched Content Not Present"));
     }
 
-    public boolean updatePatient()
-    {
+    // public boolean updatePatient(int id,PatientModel patientModel)
+    // {
         
-    }
+    // }
 }
