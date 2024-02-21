@@ -24,7 +24,7 @@ public class DoctorController {
     @GetMapping("/getAllDoctors")
     public ResponseEntity<List<Doctor>> getDoctors() {
         try {
-            List<Doctor> doctors = doctorService.getAllDoctors();
+            List<Doctor> doctors = doctorService.getDoctors();
             return ResponseEntity.ok(doctors);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
