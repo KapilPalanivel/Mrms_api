@@ -17,22 +17,13 @@ import jakarta.persistence.EntityNotFoundException;
 @Service
 public class PatientServices {
     @Autowired
-    private PatientRepository patRepo;
+    private PatientRepository patientRepos;
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    @SuppressWarnings({ "null", "deprecation" })
+    @SuppressWarnings({ "null" })
     public String savePatient(PatientModel pmodel) {
-
-        System.out.println("Current :" + getCurrentDate().getYear() + " " + pmodel.getDate_of_birth().getYear());
-        if (getCurrentDate().getYear() > pmodel.getDate_of_birth().getYear()) {
-            int age = getCurrentDate().getYear() - pmodel.getDate_of_birth().getYear();
-            pmodel.setAge(age);
-            patRepo.save(pmodel);
-            return "Success";
-        } else {
-            return "Enter a valid age";
-        }
+        return (patientRepos.save(pmodel).toString());
     }
 
     @SuppressWarnings("null")
@@ -43,16 +34,23 @@ public class PatientServices {
     }
 
     public List<PatientModel> getPatient() {
-        return patRepo.findAll();
+        return patientRepos.findAll();
     }
 
     public PatientModel getPatientById(long id) {
-        Optional<PatientModel> po = patRepo.findById(id);
+        Optional<PatientModel> po = patientRepos.findById(id);
         return po.orElseThrow(() -> new EntityNotFoundException("Searched Content Not Present"));
     }
 
-    public boolean updatePatient()
+    @SuppressWarnings("null")
+    public boolean updatePatient(long id,PatientModel patientModel)
     {
-        
+        if(patientRepos.findById(id)!=null)
+        {
+            patientRepos.save(patientModel);
+            return true;
+        }
+        else
+            return false;
     }
 }

@@ -11,7 +11,6 @@ import jakarta.persistence.Id;
 @Entity
 public class PatientModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String DoctorName;
     private int age;
