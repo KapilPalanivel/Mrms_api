@@ -42,7 +42,7 @@ public class PatientServices {
         return po.orElseThrow(() -> new EntityNotFoundException("Searched Content Not Present"));
     }
 
-    @SuppressWarnings("null")
+    @SuppressWarnings({ "null", "unused" })
     public boolean updatePatient(long id,PatientModel patientModel)
     {
         if(patientRepos.findById(id)!=null)
