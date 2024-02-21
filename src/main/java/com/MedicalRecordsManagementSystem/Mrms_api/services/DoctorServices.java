@@ -25,7 +25,7 @@ public class DoctorServices {
        }
     }
 
-    public List<Doctor> getAllDoctors() {
+    public List<Doctor> getDoctors() {
         return doctorRepo.findAll();
     }
   
