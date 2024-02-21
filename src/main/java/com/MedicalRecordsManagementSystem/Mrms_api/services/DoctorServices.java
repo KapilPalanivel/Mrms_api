@@ -21,11 +21,13 @@ public class DoctorServices {
        }
        catch(Exception e)
        {
-        System.out.println(e.toString());
+           System.out.println("\Error");
+           System.out.println(e.toString());
+           System.out.println("\Error");
        }
     }
 
-    public List<Doctor> getAllDoctors() {
+    public List<Doctor> getADoctors() {
         return doctorRepo.findAll();
     }
 

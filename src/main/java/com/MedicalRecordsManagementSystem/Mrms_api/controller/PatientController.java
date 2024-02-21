@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.MedicalRecordsManagementSystem.Mrms_api.model.PatientModel;
 import com.MedicalRecordsManagementSystem.Mrms_api.services.PatientServices;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/Patient")
@@ -30,7 +31,7 @@ public class PatientController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
         }
     }
-    
+
     @GetMapping("/getPatient")
     public ResponseEntity<?> getPatient(@RequestParam long id) {
         try {
@@ -48,12 +49,20 @@ public class PatientController {
     @PostMapping("/addPatient")
     public ResponseEntity<?> addPatient(@RequestBody PatientModel pm) {
         try {
-            String kl=patientService.savePatient(pm);
+            String kl = patientService.savePatient(pm);
             System.out.println(kl);
             return ResponseEntity.ok(pm);
         } catch (Exception e) {
             System.out.println(e.toString());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
         }
+    }
+
+    @PutMapping("/updatePatients")
+    public String putMethodName(@RequestParam long id, @RequestBody PatientModel patientModel) {
+        if (patientService.updatePatient(id, patientModel)) {
+            return "Success!";
+        }
+        return "Failed!";
     }
 }
