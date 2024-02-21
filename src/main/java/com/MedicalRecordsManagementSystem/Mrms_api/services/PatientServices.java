@@ -53,5 +53,9 @@ public class PatientServices {
         else
             return false;
     }
+
+    public void deletePatientById(long id) {
+        patientRepos.deleteById(id);
+    }
 }
     
