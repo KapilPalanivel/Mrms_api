@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.MedicalRecordsManagementSystem.Mrms_api.model.Doctor;
 import com.MedicalRecordsManagementSystem.Mrms_api.services.DoctorServices;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 @RestController
 @RequestMapping("/Doctor")
@@ -21,11 +25,11 @@ public class DoctorController {
     @Autowired
     private DoctorServices doctorService;
 
-    @GetMapping("/getAllDoctors")
+    @GetMapping("/getAllDoctors")   
     public ResponseEntity<List<Doctor>> getDoctors() {
         try {
             List<Doctor> doctors = doctorService.getDoctors();
-            return ResponseEntity.ok(doctors);
+            return new ResponseEntity<>(doctors,HttpStatus.OK);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
@@ -54,4 +58,19 @@ public class DoctorController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
+    @PutMapping("putDoctor/{id}")
+    public ResponseEntity<Doctor> putMethodName(@PathVariable ("id") Long id, @RequestBody Doctor doctor) {
+        if(doctorService.updateDoctor(id , doctor) == true)
+        return new ResponseEntity<>(doctor , HttpStatus.OK);
+        return new ResponseEntity<>(null , HttpStatus.NOT_FOUND);
+        
+    }
+    @DeleteMapping("deleteDoctor/{id}")
+    public ResponseEntity<Doctor> deleteMethodName(@PathVariable ("id") Long id) {
+        if(doctorService.deleteDoctor(id) == true)
+        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        
+    }
+
 }
