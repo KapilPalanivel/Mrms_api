@@ -55,7 +55,7 @@ public class PatientController {
             return ResponseEntity.ok(pm);
         } catch (Exception e) {
             System.out.println(e.toString());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Data Not Found");
         }
     }
 
@@ -67,8 +67,10 @@ public class PatientController {
         return "Failed!";
     }
 
+    @SuppressWarnings("rawtypes")
     @DeleteMapping("/deletePatient")
-    public void deletePatient(@RequestParam long id) {
+    public ResponseEntity deletePatient(@RequestParam long id) {
         patientService.deletePatientById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
