@@ -7,6 +7,10 @@ import java.util.Optional;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.MedicalRecordsManagementSystem.Mrms_api.model.PatientModel;
@@ -33,8 +37,9 @@ public class PatientServices {
         return currentDate.toLocalDate();
     }
 
-    public List<PatientModel> getPatient() {
-        return patientRepos.findAll();
+    public Page<PatientModel> getPatient() {
+        PageRequest page= PageRequest.of(3,1);
+        return patientRepos.findAll(page);
     }
 
     public PatientModel getPatientById(long id) {

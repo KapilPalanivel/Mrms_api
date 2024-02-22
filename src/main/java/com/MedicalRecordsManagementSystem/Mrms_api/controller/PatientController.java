@@ -3,6 +3,7 @@ package com.MedicalRecordsManagementSystem.Mrms_api.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,7 +27,7 @@ public class PatientController {
     @GetMapping("/getAllPatients")
     public ResponseEntity<?> getPatient() {
         try {
-            List<PatientModel> patients = patientService.getPatient();
+            Page<PatientModel> patients = patientService.getPatient();
             return ResponseEntity.ok(patients);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
