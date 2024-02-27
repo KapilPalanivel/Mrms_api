@@ -14,6 +14,7 @@ public class DoctorServices {
     @Autowired
     private DoctorRepository doctorRepo;
 
+    @SuppressWarnings("null")
     public void addDoctor(Doctor doctor) {
        try{
         doctorRepo.save(doctor);
@@ -34,6 +35,7 @@ public class DoctorServices {
         Optional<Doctor> optionalDoctor = doctorRepo.findById(id);
         return optionalDoctor.orElse(null);
     }
+    @SuppressWarnings("null")
     public boolean updateDoctor(Long id , Doctor doctor)
     {
         if(this.getDoctorById(id) ==  null)
@@ -45,6 +47,7 @@ public class DoctorServices {
         }
         return true;
     }
+    @SuppressWarnings("null")
     public boolean deleteDoctor(Long id)
     {
         if(this.getDoctorById(id) ==  null)
