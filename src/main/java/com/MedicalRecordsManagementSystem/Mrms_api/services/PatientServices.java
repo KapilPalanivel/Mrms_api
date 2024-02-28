@@ -2,11 +2,12 @@ package com.MedicalRecordsManagementSystem.Mrms_api.services;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.MedicalRecordsManagementSystem.Mrms_api.model.PatientModel;
@@ -33,8 +34,9 @@ public class PatientServices {
         return currentDate.toLocalDate();
     }
 
-    public List<PatientModel> getPatient() {
-        return patientRepos.findAll();
+    public Page<PatientModel> getPatient() {
+        PageRequest page= PageRequest.of(3,1);
+        return patientRepos.findAll(page);
     }
 
     public PatientModel getPatientById(long id) {
@@ -52,6 +54,10 @@ public class PatientServices {
         }
         else
             return false;
+    }
+
+    public void deletePatientById(long id) {
+        patientRepos.deleteById(id);
     }
 }
     

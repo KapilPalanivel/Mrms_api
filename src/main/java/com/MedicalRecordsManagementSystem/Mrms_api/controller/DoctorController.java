@@ -56,6 +56,7 @@ public class DoctorController {
             return new ResponseEntity<>(doctor,HttpStatus.OK);
             return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
     }
+    @SuppressWarnings("null")
     @PutMapping("putDoctor/{id}")
     public ResponseEntity<Doctor> putMethodName(@PathVariable ("id") Long id, @RequestBody Doctor doctor) {
         if(doctorService.updateDoctor(id , doctor) == true)
