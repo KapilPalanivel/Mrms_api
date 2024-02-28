@@ -1,16 +1,17 @@
 package com.MedicalRecordsManagementSystem.Mrms_api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Doctor { 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long Doctorid;
+    private long doctorId;
     private int age;
     private String name;
     @Column(unique = true)
@@ -21,12 +22,21 @@ public class Doctor {
     private String dept;
     private String dob;
 
+
+
+    //
+
+    // @OneToOne(cascade = CascadeType.ALL)
+    // public Doctor doctor;
+
+    //
+
     public Doctor() {
     } 
 
-    public Doctor(long doctorid, int age, String name, String number, String email, String password, String dept,
+    public Doctor(long doctorId, int age, String name, String number, String email, String password, String dept,
             String dob) {
-        Doctorid = doctorid;
+        this.doctorId = doctorId;
         this.age = age;
         this.name = name;
         this.number = number;
@@ -37,11 +47,11 @@ public class Doctor {
     }
 
     public long getId() {
-        return Doctorid;
+        return doctorId;
     }
 
-    public void setId(long Doctorid) {
-        this.Doctorid = Doctorid;
+    public void setId(long doctorId) {
+        this.doctorId = doctorId;
     }
 
     
@@ -54,12 +64,12 @@ public class Doctor {
         this.name = name;
     }
 
-    public long getDoctorid() {
-        return Doctorid;
+    public long getDoctorId() {
+        return doctorId;
     }
 
-    public void setDoctorid(long doctorid) {
-        Doctorid = doctorid;
+    public void setDoctorId(long doctorId) {
+        this.doctorId = doctorId;
     }
 
     public int getAge() {
@@ -67,7 +77,7 @@ public class Doctor {
     }
 
     public void setAge(int age) {
-        this.age = age;
+        this.age = age;     
     }
 
     public String getNumber() {
@@ -85,7 +95,7 @@ public class Doctor {
     public void setEmail(String email) {
         this.email = email;
     }
-
+    @JsonIgnore
     public String getPassword() {
         return password;
     }

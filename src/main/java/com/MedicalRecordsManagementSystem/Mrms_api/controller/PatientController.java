@@ -1,10 +1,10 @@
 package com.MedicalRecordsManagementSystem.Mrms_api.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +25,7 @@ public class PatientController {
     @GetMapping("/getAllPatients")
     public ResponseEntity<?> getPatient() {
         try {
-            List<PatientModel> patients = patientService.getPatient();
+            Page<PatientModel> patients = patientService.getPatient();
             return ResponseEntity.ok(patients);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
@@ -54,7 +54,7 @@ public class PatientController {
             return ResponseEntity.ok(pm);
         } catch (Exception e) {
             System.out.println(e.toString());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Data Not Found");
         }
     }
 
@@ -64,5 +64,12 @@ public class PatientController {
             return "Success!";
         }
         return "Failed!";
+    }
+
+    @SuppressWarnings("rawtypes")
+    @DeleteMapping("/deletePatient")
+    public ResponseEntity deletePatient(@RequestParam long id) {
+        patientService.deletePatientById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

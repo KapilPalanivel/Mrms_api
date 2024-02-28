@@ -14,6 +14,7 @@ public class PharmacyService {
     public PharmacyService(PharmacyRepo pharmacyRepo) {
         this.pharmacyRepo = pharmacyRepo;
     }
+    @SuppressWarnings("null")
     public PharmacyModel saveMedicine(PharmacyModel pharmacyModel)
     {
         return pharmacyRepo.save(pharmacyModel);
@@ -26,6 +27,7 @@ public class PharmacyService {
     {
         return pharmacyRepo.findById(id).orElse(null);
     }
+    @SuppressWarnings("null")
     public boolean updateMedicine(int id,PharmacyModel pharmacyModel)
     {
         if(getById(id)==null)
