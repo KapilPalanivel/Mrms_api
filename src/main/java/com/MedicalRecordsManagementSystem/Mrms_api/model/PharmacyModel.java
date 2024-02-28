@@ -1,47 +1,42 @@
 package com.MedicalRecordsManagementSystem.Mrms_api.model;
 
-import java.sql.Date;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class PharmacyModel {
     @Id
-    private int medicineId;
-    private String medicineName;
-    private int stock;
-    private String medicineBrand;
-    private Date expiryDate;
+    private int pharmacyId;
+    private int vendorId;
     private String vendorName;
-    public PharmacyModel(int medicineId, String medicineName, int stock, String medicineBrand, Date expiryDate,
-            String vendorName) {
-        this.medicineId = medicineId;
-        this.medicineName = medicineName;
-        this.stock = stock;
-        this.medicineBrand = medicineBrand;
-        this.expiryDate = expiryDate;
+    private String contractSigned;
+    public PharmacyModel(int pharmacyId, int vendorId, String vendorName, String contractSigned) {
+        this.pharmacyId = pharmacyId;
+        this.vendorId = vendorId;
         this.vendorName = vendorName;
+        this.contractSigned = contractSigned;
     }
-    public PharmacyModel() {
+    public int getPharmacyId() {
+        return pharmacyId;
     }
-    public int getMedicineId() {
-        return medicineId;
-    }
-    public String getMedicineName() {
-        return medicineName;
-    }
-    public int getStock() {
-        return stock;
-    }
-    public String getMedicineBrand() {
-        return medicineBrand;
-    }
-    public Date getExpiryDate() {
-        return expiryDate;
+    public int getVendorId() {
+        return vendorId;
     }
     public String getVendorName() {
         return vendorName;
     }
-    
+    public String getContractSigned() {
+        return contractSigned;
+    }
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "pharmacyModel",cascade =CascadeType.ALL)
+    private List<Medicine> medicine;
 }
