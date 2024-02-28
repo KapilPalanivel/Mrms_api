@@ -3,7 +3,11 @@ package com.MedicalRecordsManagementSystem.Mrms_api.services;
 import java.util.List;
 import java.util.Optional;
 
+// import org.hibernate.query.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.MedicalRecordsManagementSystem.Mrms_api.model.Doctor;
@@ -14,7 +18,7 @@ public class DoctorServices {
     @Autowired
     private DoctorRepository doctorRepo;
 
-    public void addDoctor(Doctor doctor) {
+    public boolean addDoctor(Doctor doctor) {
        try{
         doctorRepo.save(doctor);
        }
@@ -23,7 +27,9 @@ public class DoctorServices {
            System.out.println("Error");
            System.out.println(e.toString());
            System.out.println("Error");
+           return false;
        }
+       return true;
     }
 
     public List<Doctor> getDoctors() {
@@ -55,5 +61,16 @@ public class DoctorServices {
             return false;
         }
         return true;
+    }
+    /*
+     * pagination
+     */
+    public List<Doctor> getPage(int offset , int size)
+    {
+        return doctorRepo.findAll(PageRequest.of(offset, size)).getContent();
+    }
+    public List<Doctor> getSortedPage(int offset , int size , String field)
+    {
+        return doctorRepo.findAll(PageRequest.of(offset, size, Sort.by(field))).getContent();
     }
 }

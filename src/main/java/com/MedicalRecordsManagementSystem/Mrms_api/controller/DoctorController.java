@@ -3,6 +3,7 @@ package com.MedicalRecordsManagementSystem.Mrms_api.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -50,13 +51,10 @@ public class DoctorController {
     }
 
     @PostMapping("/addDoctor")
-    public ResponseEntity<Doctor> addDoctor(@RequestBody Doctor pm) {
-        try {
-            doctorService.addDoctor(pm);
-            return ResponseEntity.ok(pm);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
+    public ResponseEntity<Doctor> addDoctor(@RequestBody Doctor doctor) {
+            if(doctorService.addDoctor(doctor) == true)
+            return new ResponseEntity<>(doctor,HttpStatus.OK);
+            return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
     }
     @PutMapping("putDoctor/{id}")
     public ResponseEntity<Doctor> putMethodName(@PathVariable ("id") Long id, @RequestBody Doctor doctor) {
@@ -72,5 +70,24 @@ public class DoctorController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         
     }
+    /*
+     * pagination and sorting
+     */
+    @SuppressWarnings("unchecked")
+    @GetMapping("/getPage/{offset}/{size}")
+    public ResponseEntity<List<Doctor>> getPage(@PathVariable int offset , @PathVariable int size) {
+        List list = doctorService.getPage(offset, size);
+        if(list.size() > 0)
+        return new ResponseEntity<>(list , HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    @SuppressWarnings("unchecked")
+    @GetMapping("/getSortedPage/{offset}/{size}/{field}")
+    public ResponseEntity<List <Doctor>> getPage(@PathVariable int offset , @PathVariable int size ,@PathVariable String field) {
+        @SuppressWarnings("rawtypes")
+        List p = doctorService.getSortedPage(offset, size, field);
+        return new ResponseEntity<>(p , HttpStatus.OK);
+    }
+    
 
 }

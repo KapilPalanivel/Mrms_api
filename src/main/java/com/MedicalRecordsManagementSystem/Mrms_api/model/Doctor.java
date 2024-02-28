@@ -2,9 +2,11 @@ package com.MedicalRecordsManagementSystem.Mrms_api.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Doctor { 
@@ -19,6 +21,15 @@ public class Doctor {
     private String password;
     private String dept;
     private String dob;
+
+
+
+    //
+
+    // @OneToOne(cascade = CascadeType.ALL)
+    // public Doctor doctor;
+
+    //
 
     public Doctor() {
     } 
@@ -84,7 +95,7 @@ public class Doctor {
     public void setEmail(String email) {
         this.email = email;
     }
-@JsonIgnore
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
