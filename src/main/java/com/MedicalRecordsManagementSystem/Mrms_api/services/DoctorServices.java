@@ -3,33 +3,23 @@ package com.MedicalRecordsManagementSystem.Mrms_api.services;
 import java.util.List;
 import java.util.Optional;
 
-// import org.hibernate.query.Page;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.MedicalRecordsManagementSystem.Mrms_api.model.Doctor;
 import com.MedicalRecordsManagementSystem.Mrms_api.repository.DoctorRepository;
 
 @Service
+@Transactional
 public class DoctorServices {
     @Autowired
     private DoctorRepository doctorRepo;
 
-    public boolean addDoctor(Doctor doctor) {
-       try{
-        doctorRepo.save(doctor);
-       }
-       catch(Exception e)
-       {
-           System.out.println("Error");
-           System.out.println(e.toString());
-           System.out.println("Error");
-           return false;
-       }
-       return true;
+    public Doctor addDoctor(Doctor doctor) {
+       return doctorRepo.save(doctor);
     }
 
     public List<Doctor> getDoctors() {
@@ -40,7 +30,6 @@ public class DoctorServices {
         Optional<Doctor> optionalDoctor = doctorRepo.findById(id);
         return optionalDoctor.orElse(null);
     }
-    @SuppressWarnings("null")
     public boolean updateDoctor(Long id , Doctor doctor)
     {
         if(this.getDoctorById(id) ==  null)
@@ -52,7 +41,6 @@ public class DoctorServices {
         }
         return true;
     }
-    @SuppressWarnings("null")
     public boolean deleteDoctor(Long id)
     {
         if(this.getDoctorById(id) ==  null)
@@ -75,4 +63,14 @@ public class DoctorServices {
     {
         return doctorRepo.findAll(PageRequest.of(offset, size, Sort.by(field))).getContent();
     }
+
+    /*
+     * Queries
+     */
+
+     //
+     public List<Doctor> nameStartsWith(String name)
+     {
+        return doctorRepo.findByNameStartingWith(name);
+     }
 }

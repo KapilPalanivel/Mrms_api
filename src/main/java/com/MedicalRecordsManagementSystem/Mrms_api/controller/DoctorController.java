@@ -3,7 +3,6 @@ package com.MedicalRecordsManagementSystem.Mrms_api.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -52,9 +51,10 @@ public class DoctorController {
 
     @PostMapping("/addDoctor")
     public ResponseEntity<Doctor> addDoctor(@RequestBody Doctor doctor) {
-            if(doctorService.addDoctor(doctor) == true)
+        Doctor d = doctorService.addDoctor(doctor);
+            if(d != null)
             return new ResponseEntity<>(doctor,HttpStatus.OK);
-            return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
     @SuppressWarnings("null")
     @PutMapping("putDoctor/{id}")
@@ -74,10 +74,9 @@ public class DoctorController {
     /*
      * pagination and sorting
      */
-    @SuppressWarnings("unchecked")
     @GetMapping("/getPage/{offset}/{size}")
     public ResponseEntity<List<Doctor>> getPage(@PathVariable int offset , @PathVariable int size) {
-        List list = doctorService.getPage(offset, size);
+        List<Doctor> list = doctorService.getPage(offset, size);
         if(list.size() > 0)
         return new ResponseEntity<>(list , HttpStatus.OK);
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -90,5 +89,10 @@ public class DoctorController {
         return new ResponseEntity<>(p , HttpStatus.OK);
     }
     
+    @GetMapping("/getByNameSatrtsWith/{name}")
+     public List<Doctor> nameStartsWith(@PathVariable String name)
+     {
+        return doctorService.nameStartsWith(name);
+     }
 
 }
