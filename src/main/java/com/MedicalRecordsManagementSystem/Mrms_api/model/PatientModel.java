@@ -1,6 +1,7 @@
 package com.MedicalRecordsManagementSystem.Mrms_api.model;
 
 import java.sql.Date;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,25 +17,22 @@ public class PatientModel {
     private String email;
     private String password;
     private String department_consulting;
+    private List<Medicine> medicines;
     @Column(updatable = false, name = "dob")
     private Date date_of_birth;
+
+    public List<Medicine> getMedicines() {
+        return medicines;
+    }
+
+    public void setMedicines(List<Medicine> medicines) {
+        this.medicines = medicines;
+    }
+
     @Column(updatable = false, insertable = true)
     private String gender;
 
     public PatientModel() {
-    }
-
-    public PatientModel(long id, String doctorid, int age, String name, String phone_number, String email,
-            String password, String department_consulting, Date date_of_birth, String gender) {
-        this.id = id;
-        this.age = age;
-        this.name = name;
-        this.phone_number = phone_number;
-        this.email = email;
-        this.password = password;
-        this.department_consulting = department_consulting;
-        this.date_of_birth = date_of_birth;
-        this.gender = gender;
     }
 
     public long getId() {

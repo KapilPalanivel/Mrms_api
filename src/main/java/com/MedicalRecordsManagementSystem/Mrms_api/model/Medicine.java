@@ -19,8 +19,8 @@ public class Medicine {
     @Id
     private int medicineId;
     private String medicineString;
-    private String manufacturedName;
-    private String medicineBrand;
+    private String manufacturerName;
+    private int currentStock;
     private String dosage;
 
     @JsonBackReference
