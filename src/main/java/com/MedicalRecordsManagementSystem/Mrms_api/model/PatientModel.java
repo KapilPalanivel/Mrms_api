@@ -38,6 +38,7 @@ public class PatientModel {
     /*
      * relation with Doctor
      */
+    
     @ManyToOne
     @JoinColumn(name = "Doctor_id")
     @JsonBackReference
