@@ -53,7 +53,7 @@ public class DoctorServices {
         return true;
     }
     /*
-     * pagination
+     * pagination and sorting
      */
     public List<Doctor> getPage(int offset , int size)
     {
