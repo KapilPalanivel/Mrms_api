@@ -9,12 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.MedicalRecordsManagementSystem.Mrms_api.model.PatientModel;
 import com.MedicalRecordsManagementSystem.Mrms_api.repository.PatientRepository;
 
 import jakarta.persistence.EntityNotFoundException;
-
+@Transactional
 @Service
 public class PatientServices {
     @Autowired
@@ -22,7 +23,6 @@ public class PatientServices {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    @SuppressWarnings({ "null" })
     public String savePatient(PatientModel pmodel) {
         return (patientRepos.save(pmodel).toString());
     }
@@ -44,7 +44,7 @@ public class PatientServices {
         return po.orElseThrow(() -> new EntityNotFoundException("Searched Content Not Present"));
     }
 
-    @SuppressWarnings({ "null", "unused" })
+    @SuppressWarnings({ "unused" })
     public boolean updatePatient(long id,PatientModel patientModel)
     {
         if(patientRepos.findById(id)!=null)
